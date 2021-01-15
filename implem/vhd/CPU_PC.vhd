@@ -105,16 +105,16 @@ begin
         cmd.SHIFTER_op        <= UNDEFINED;
         cmd.SHIFTER_Y_sel     <= UNDEFINED;
 
-        cmd.RF_we             <= 'U';
+        cmd.RF_we             <= '0';
         cmd.RF_SIZE_sel       <= UNDEFINED;
-        cmd.RF_SIGN_enable    <= 'U';
-        cmd.DATA_sel          <= UNDEFINED;
+        cmd.RF_SIGN_enable    <= '0';
+        cmd.DATA_sel          <= DATA_from_pc;
 
-        cmd.PC_we             <= 'U';
+        cmd.PC_we             <= '0';
         cmd.PC_sel            <= UNDEFINED;
 
-        cmd.PC_X_sel          <= UNDEFINED;
-        cmd.PC_Y_sel          <= UNDEFINED;
+        cmd.PC_X_sel          <= PC_X_cst_x00;
+        cmd.PC_Y_sel          <= PC_Y_cst_x04;
 
         cmd.TO_PC_Y_sel       <= UNDEFINED;
 
@@ -123,9 +123,9 @@ begin
 
         cmd.IR_we             <= 'U';
 
-        cmd.ADDR_sel          <= UNDEFINED;
-        cmd.mem_we            <= 'U';
-        cmd.mem_ce            <= 'U';
+        cmd.ADDR_sel          <= ADDR_from_pc;
+        cmd.mem_we            <= '0';
+        cmd.mem_ce            <= '0';
 
         cmd_cs.CSR_we            <= UNDEFINED;
 
