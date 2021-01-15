@@ -165,12 +165,33 @@ begin
                 cmd.PC_sel <= PC_from_pc;
                 cmd.PC_we <= '1';
 
-                state_d <= S_Init;
+                if status.IR(6 downto 0) = "0110111" then
+                    cmd.TO_PC_Y_sel <= TO_PC_Y_cst_x04;
+                    cmd.PC_sel <= PC_from_pc;
+                    cmd.PC_we <= ’1’;
+                    state_d <= S_LUI;
+                else
+                    state_d <= S_Error; -- Pour d´etecter les rat´es du d´ecodage
+                end if;
+                    
 
                 -- Décodage effectif des instructions,
                 -- à compléter par vos soins
 
 ---------- Instructions avec immediat de type U ----------
+
+                when S_LUI =>
+                    -- rd <- ImmU + 0
+                    cmd.PC_X_sel <= PC_X_cst_x00;
+                    cmd.PC_Y_sel <= PC_Y_immU;
+                    cmd.RF_we <= ’1’;
+                    cmd.DATA_sel <= DATA_from_pc;
+                    -- lecture mem[PC]
+                    cmd.ADDR_sel <= ADDR_from_pc;
+                    cmd.mem_ce <= ’1’;
+                    cmd.mem_we <= ’0’;
+                    -- next state
+                    state_d <= S_Fetch
 
 ---------- Instructions arithmétiques et logiques ----------
 
