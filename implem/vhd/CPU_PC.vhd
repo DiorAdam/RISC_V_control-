@@ -206,11 +206,16 @@ begin
             
             when S_ADDI => 
                 --alu operation
-                cmd.ALU_op_type <= ALU_plus;
-                cmd.ALU_Y_select <= ALU_Y_immI;
+                cmd.ALU_op <= ALU_plus;
+                --rd = rs1 + immI
+                cmd.ALU_Y_sel <= ALU_Y_immI;
                 cmd.RF_we <= '1';
                 cmd.DATA_sel <= DATA_from_alu;
-
+                -- lecture mem[PC]
+                cmd.ADDR_sel <= ADDR_from_pc;
+                cmd.mem_ce <= '1';
+                cmd.mem_we <= '0';
+                -- next state
                 state_d <= S_Fetch;
 
 ---------- Instructions de saut ----------
