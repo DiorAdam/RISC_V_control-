@@ -13,7 +13,7 @@ ADDI
 #AND
 #ANDI
 #OR
-#ORI
+ORI
 #XOR
 #XORI
 
