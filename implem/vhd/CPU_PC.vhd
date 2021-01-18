@@ -173,7 +173,7 @@ begin
                     cmd.PC_we <= '1';
                     state_d <= S_LUI;
 
-                elsif status.IR(5 downto 0) = "0010011" then
+                elsif status.IR(6 downto 0) = "0010011" then
                     cmd.TO_PC_Y_sel <= TO_PC_Y_cst_x04;
                     cmd.PC_sel <= PC_from_pc;
                     cmd.PC_we <= '1';
