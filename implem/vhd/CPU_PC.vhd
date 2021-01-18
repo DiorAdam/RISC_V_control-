@@ -28,7 +28,8 @@ architecture RTL of CPU_PC is
         S_Pre_Fetch,
         S_Fetch,
         S_Decode,
-        S_LUI
+        S_LUI,
+        S_ADDI
     );
 
     signal state_d, state_q : State_type;
@@ -171,9 +172,16 @@ begin
                     cmd.PC_sel <= PC_from_pc;
                     cmd.PC_we <= '1';
                     state_d <= S_LUI;
+
+                elsif status.IR(5 downto 0) = "0010011" then
+                    cmd.TO_PC_Y_sel <= TO_PC_Y_cst_x04;
+                    cmd.PC_sel <= PC_from_pc;
+                    cmd.PC_we <= '1';
+                    state_d <= S_ADDI;
                 else
                     state_d <= S_Error; -- Pour d´etecter les rat´es du d´ecodage
                 end if;
+
                     
 
                 -- Décodage effectif des instructions,
@@ -195,6 +203,15 @@ begin
                 state_d <= S_Fetch;
 
 ---------- Instructions arithmétiques et logiques ----------
+            
+            when S_ADDI => 
+                --alu operation
+                cmd.ALU_op_type <= ALU_plus;
+                cmd.ALU_Y_select <= ALU_Y_immI;
+                cmd.RF_we <= '1';
+                cmd.DATA_sel <= DATA_from_alu;
+
+                state_d <= S_Fetch;
 
 ---------- Instructions de saut ----------
 
