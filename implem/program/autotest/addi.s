@@ -1,4 +1,4 @@
-# TAG = addi
+# TAG = ADDI
     .text
 
     addi x31, x0, 0;

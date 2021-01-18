@@ -99,9 +99,9 @@ begin
 
         -- Valeurs par défaut de cmd à définir selon les préférences de chacun
         cmd.rst               <= 'U';
-        cmd.ALU_op            <= UNDEFINED;
+        cmd.ALU_op            <= ALU_plus;
         cmd.LOGICAL_op        <= UNDEFINED;
-        cmd.ALU_Y_sel         <= UNDEFINED;
+        cmd.ALU_Y_sel         <= ALU_Y_rf_rs2;
 
         cmd.SHIFTER_op        <= UNDEFINED;
         cmd.SHIFTER_Y_sel     <= UNDEFINED;
