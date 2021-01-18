@@ -6,6 +6,12 @@ VERB ?= 0
 SEQUENCE  ?= program/sequence_tag
 TESTS_DIR ?= program/autotest/
 
+PROG ?= addi
+TOP  ?= PROC_complet
+TIME ?= 10000ns
+VERB ?= 0
+SEQUENCE  ?= program/sequence_tag
+TESTS_DIR ?= program/autotest/
 
 .PHONY: compile simulation synthesis fpga autotest clean realclean
 
