@@ -229,7 +229,7 @@ begin
                 state_d <= S_Fetch;
 
             when S_ORI =>
-                cmd.LOGICAL_op <= LOGICAL_and;
+                cmd.LOGICAL_op <= LOGICAL_or;
                 cmd.ALU_Y_sel <= ALU_Y_rf_rs2;		
                 cmd.RF_we <= '1';
                 cmd.DATA_sel <= DATA_from_logical;
