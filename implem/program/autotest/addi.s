@@ -1,4 +1,4 @@
-# TAG = ADDI
+# TAG = addi
     .text
 
     addi x31, x0, 0        # Test yolo
