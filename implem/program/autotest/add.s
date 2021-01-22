@@ -1,5 +1,4 @@
 # TAG = add
-
         .text
         
         addi x31, x0, 0x89 
