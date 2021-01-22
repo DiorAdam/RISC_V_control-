@@ -1,10 +1,10 @@
 # TAG = addi
         .text
 
-        addi x31, x0, 0        # Test yolo
-        addi x31, x31, 0x1     # Test yolo
-        addi x31, x31, 0x2     # Test yolo
-        addi x31, x31, 0x41    # Test yolo
+        addi x31, x0, 0        
+        addi x31, x31, 0x1     
+        addi x31, x31, 0x2     
+        addi x31, x31, 0x41    
 
         # max_cycle 50
         # pout_start
