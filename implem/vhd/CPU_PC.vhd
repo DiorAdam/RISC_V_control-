@@ -106,8 +106,8 @@ begin
         cmd.LOGICAL_op        <= UNDEFINED;
         cmd.ALU_Y_sel         <= ALU_Y_rf_rs2;
 
-        cmd.SHIFTER_op        <= UNDEFINED;
-        cmd.SHIFTER_Y_sel     <= UNDEFINED;
+        cmd.SHIFTER_op        <= SHIFT_rl;
+        cmd.SHIFTER_Y_sel     <= SHIFTER_Y_rs2;
 
         cmd.RF_we             <= '0';
         cmd.RF_SIZE_sel       <= UNDEFINED;
