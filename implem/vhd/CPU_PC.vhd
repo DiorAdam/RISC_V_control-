@@ -31,7 +31,8 @@ architecture RTL of CPU_PC is
         S_LUI,
         S_ADDI,
         S_ADD,
-        S_ORI
+        S_ORI,
+        S_SRL
     );
 
     signal state_d, state_q : State_type;
@@ -176,7 +177,8 @@ begin
                     state_d <= S_LUI;
                 
                 elsif status.IR(6 downto 0) = "0110011"
-                and status.IR(14 downto 12) = "000" then
+                and status.IR(14 downto 12) = "000" 
+                and status.IR(31 downto 25) = "0000000" then
                     cmd.TO_PC_Y_sel <= TO_PC_Y_cst_x04;
                     cmd.PC_sel <= PC_from_pc;
                     cmd.PC_we <= '1';
@@ -188,6 +190,14 @@ begin
                     cmd.PC_sel <= PC_from_pc;
                     cmd.PC_we <= '1';
                     state_d <= S_ADDI;
+                
+                elsif status.IR(6 downto 0) = "0110011" 
+                and status.IR(14 downto 12) = "101" 
+                and status.IR(31 downto 25) = "0000000" then
+                    cmd.TO_PC_Y_sel <= TO_PC_Y_cst_x04;
+                    cmd.PC_sel <= PC_from_pc;
+                    cmd.PC_we <= '1';
+                    state_d <= S_SRL;
 
                 elsif status.IR(6 downto 0) = "0010011" 
                 and status.IR(14 downto 12) = "110" then
@@ -258,6 +268,19 @@ begin
                 cmd.DATA_sel <= DATA_from_logical;
                  -- lecture mem[PC]
                 cmd.ADDR_sel <= ADDR_from_pc;
+                cmd.mem_ce <= '1';
+                cmd.mem_we <= '0';
+                --next state
+                state_d <= S_Fetch;
+                
+            
+            when S_SRL =>
+                -- rd <- décalage a droite rs1 par rs2
+                cmd.SHIFTER_Y_SEL <= SHIFTER_Y_rs2;
+                cmd.SHIFTER_op <=SHIFT_rl;
+                cmd.RF_we <= '1';
+                cmd.DATA_sel <= DATA_from_shifter;
+                --lecture mem[PC]
                 cmd.mem_ce <= '1';
                 cmd.mem_we <= '0';
                 --next state
