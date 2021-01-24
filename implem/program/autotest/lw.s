@@ -2,12 +2,18 @@
     .text
 
     auipc x29, 0
-    add x30, x1, x2
-    lw x31, 0(x29)
+    lw x31, 0xc(x29)
+    lw x31, 0x1c(x29)
 
-    auipc x29, 0
+    add x30, x1, x2
+    add x30, x1, x2
+    add x30, x1, x2
+
     add x30, x3, x4
-    lw x31, 0(x29)
+    add x30, x3, x4
+    add x30, x3, x4
+    add x30, x3, x4
+    add x30, x3, x4
 
     # max_cycle 50
     # pout_start
