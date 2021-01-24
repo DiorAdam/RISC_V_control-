@@ -254,7 +254,7 @@ begin
             when S_AUIPC =>
                 -- rd <- PC + ImmU
                 cmd.PC_X_sel <= PC_X_pc;
-                cmd.PC_Y_sel <= PC_Y_ummU;
+                cmd.PC_Y_sel <= PC_Y_immU;
                 cmd.RF_we <= '1';
                 cmd.DATA_sel <= DATA_from_pc;
                 -- lecture mem[PC]
@@ -343,7 +343,7 @@ begin
             
             when S_LW =>
                 --calculationg memory address
-                cmd.AD_Y_sel = AD_Y_immI;
+                cmd.AD_Y_sel <= AD_Y_immI;
                 cmd.AD_we <= '1';
                 cmd.ADDR_sel <= ADDR_from_ad;
                 --writing data from memory on destination register
