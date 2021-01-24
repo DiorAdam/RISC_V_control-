@@ -114,7 +114,7 @@ begin
         cmd.SHIFTER_Y_sel     <= SHIFTER_Y_rs2;
 
         cmd.RF_we             <= '0';
-        cmd.RF_SIZE_sel       <= UNDEFINED;
+        cmd.RF_SIZE_sel       <= RF_SIZE_word;
         cmd.RF_SIGN_enable    <= '0';
         cmd.DATA_sel          <= DATA_from_pc;
 
@@ -343,7 +343,7 @@ begin
 ---------- Instructions de chargement à partir de la mémoire ----------
             
             when S_LW =>
-                --calculationg memory address
+                --calculating memory address
                 cmd.AD_Y_sel <= AD_Y_immI;
                 cmd.AD_we <= '1';
                 --writing data from memory on destination register
@@ -354,6 +354,7 @@ begin
                 state_d <= S_LW_exit;
             
             when S_LW_exit =>
+                RF_SIZE_sel <= RF_SIZE_word;
                 cmd.RF_we <= '1';
                 cmd.DATA_sel <= DATA_from_mem;
                 --lecture mem[PC]
