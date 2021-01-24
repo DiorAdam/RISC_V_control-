@@ -346,16 +346,16 @@ begin
                 --calculationg memory address
                 cmd.AD_Y_sel <= AD_Y_immI;
                 cmd.AD_we <= '1';
-                cmd.ADDR_sel <= ADDR_from_ad;
                 --writing data from memory on destination register
+                cmd.ADDR_sel <= ADDR_from_ad;
                 cmd.mem_ce <= '1';
                 cmd.mem_we <= '0';
-                cmd.RF_we <= '1';
-                cmd.DATA_sel <= DATA_from_mem;
-
+                --next state
                 state_d <= S_LW_exit;
             
             when S_LW_exit =>
+                cmd.RF_we <= '1';
+                cmd.DATA_sel <= DATA_from_mem;
                 --lecture mem[PC]
                 cmd.ADDR_sel <= ADDR_from_pc;
                 cmd.mem_ce <= '1';
