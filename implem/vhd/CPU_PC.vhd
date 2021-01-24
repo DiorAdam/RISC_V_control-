@@ -360,7 +360,7 @@ begin
 
                 state_d <= S_LW3;
     
-            when S_LW3
+            when S_LW3 =>
                 cmd.DATA_sel <= DATA_from_mem;
                 --lecture mem[PC]
                 cmd.ADDR_sel <= ADDR_from_pc;
