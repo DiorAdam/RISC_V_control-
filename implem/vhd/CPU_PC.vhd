@@ -353,7 +353,7 @@ begin
                 cmd.RF_we <= '1';
                 cmd.DATA_sel <= DATA_from_mem;
 
-                state_d <= S_LW_exit
+                state_d <= S_LW_exit;
             
             when S_LW_exit =>
                 --lecture mem[PC]
