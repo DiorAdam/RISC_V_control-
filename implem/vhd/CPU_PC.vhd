@@ -355,13 +355,13 @@ begin
                 state_d <= S_LW_exit;
             
             when S_LW_exit =>
-                RF_SIZE_sel <= RF_SIZE_word;
+                cmd.RF_SIZE_sel <= RF_SIZE_word;
                 cmd.RF_we <= '1';
 
                 state_d <= S_LW3;
     
             when S_LW3
-                cmd.DATA_sel <= DATA_from_mem
+                cmd.DATA_sel <= DATA_from_mem;
                 --lecture mem[PC]
                 cmd.ADDR_sel <= ADDR_from_pc;
                 cmd.mem_ce <= '1';
