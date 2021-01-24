@@ -32,7 +32,7 @@ SRL
 #SLTIU
 
 #LOADS
-#LW
+LW
 #LH
 #LHU
 #LB
