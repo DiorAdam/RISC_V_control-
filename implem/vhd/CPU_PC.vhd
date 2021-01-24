@@ -354,7 +354,7 @@ begin
                 state_d <= S_LW_exit;
             
             when S_LW_exit =>
-                RF_SIZE_sel <= RF_SIZE_word;
+                cmd.RF_SIZE_sel <= RF_SIZE_word;
                 cmd.RF_we <= '1';
                 cmd.DATA_sel <= DATA_from_mem;
                 --lecture mem[PC]
