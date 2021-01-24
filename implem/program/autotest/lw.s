@@ -2,8 +2,8 @@
     .text
 
     auipc x29, 0
-    lw x31, 0xc(x29)
-    lw x31, 0x1c(x29)
+    lw x31, 0x14(x29)
+    lw x31, 0x24(x29)
 
     add x30, x1, x2
     add x30, x1, x2
