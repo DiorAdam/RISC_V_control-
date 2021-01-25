@@ -109,7 +109,7 @@ begin
         -- Valeurs par défaut de cmd à définir selon les préférences de chacun
         cmd.rst               <= 'U';
         cmd.ALU_op            <= ALU_plus;
-        cmd.LOGICAL_op        <= UNDEFINED;
+        cmd.LOGICAL_op        <= LOGICAL_or;
         cmd.ALU_Y_sel         <= ALU_Y_rf_rs2;
 
         cmd.SHIFTER_op        <= SHIFT_rl;
@@ -121,12 +121,12 @@ begin
         cmd.DATA_sel          <= DATA_from_pc;
 
         cmd.PC_we             <= '0';
-        cmd.PC_sel            <= UNDEFINED;
+        cmd.PC_sel            <= PC_from_pc;
 
         cmd.PC_X_sel          <= PC_X_cst_x00;
         cmd.PC_Y_sel          <= PC_Y_cst_x04;
 
-        cmd.TO_PC_Y_sel       <= UNDEFINED;
+        cmd.TO_PC_Y_sel       <= TO_PC_Y_cst_x04;
 
         cmd.AD_we             <= '0';
         cmd.AD_Y_sel          <= AD_Y_immI;
@@ -177,10 +177,6 @@ begin
                     cmd.TO_PC_Y_sel <= TO_PC_Y_cst_x04;
                     cmd.PC_sel <= PC_from_pc;
                     cmd.PC_we <= '1';
-
-                    cmd.TO_PC_Y_sel <= TO_PC_Y_cst_x04;
-                    cmd.PC_sel <= PC_from_pc;
-                    cmd.PC_we <= '1';
                     state_d <= S_LUI;
                 
                 elsif status.IR(6 downto 0) = "0110011"
@@ -190,19 +186,11 @@ begin
                     cmd.TO_PC_Y_sel <= TO_PC_Y_cst_x04;
                     cmd.PC_sel <= PC_from_pc;
                     cmd.PC_we <= '1';
-
-                    cmd.TO_PC_Y_sel <= TO_PC_Y_cst_x04;
-                    cmd.PC_sel <= PC_from_pc;
-                    cmd.PC_we <= '1';
                     state_d <= S_ADD;
 
                 elsif status.IR(6 downto 0) = "0010011" 
                 and status.IR(14 downto 12) = "000" then
                     -- PC <- PC + 4
-                    cmd.TO_PC_Y_sel <= TO_PC_Y_cst_x04;
-                    cmd.PC_sel <= PC_from_pc;
-                    cmd.PC_we <= '1';
-
                     cmd.TO_PC_Y_sel <= TO_PC_Y_cst_x04;
                     cmd.PC_sel <= PC_from_pc;
                     cmd.PC_we <= '1';
@@ -215,19 +203,11 @@ begin
                     cmd.TO_PC_Y_sel <= TO_PC_Y_cst_x04;
                     cmd.PC_sel <= PC_from_pc;
                     cmd.PC_we <= '1';
-
-                    cmd.TO_PC_Y_sel <= TO_PC_Y_cst_x04;
-                    cmd.PC_sel <= PC_from_pc;
-                    cmd.PC_we <= '1';
                     state_d <= S_SRL;
 
                 elsif status.IR(6 downto 0) = "0010011" 
                 and status.IR(14 downto 12) = "110" then
                     -- PC <- PC + 4
-                    cmd.TO_PC_Y_sel <= TO_PC_Y_cst_x04;
-                    cmd.PC_sel <= PC_from_pc;
-                    cmd.PC_we <= '1';
-
                     cmd.TO_PC_Y_sel <= TO_PC_Y_cst_x04;
                     cmd.PC_sel <= PC_from_pc;
                     cmd.PC_we <= '1';
@@ -238,10 +218,6 @@ begin
                     cmd.TO_PC_Y_sel <= TO_PC_Y_cst_x04;
                     cmd.PC_sel <= PC_from_pc;
                     cmd.PC_we <= '1';
-
-                    cmd.TO_PC_Y_sel <= TO_PC_Y_cst_x04;
-                    cmd.PC_sel <= PC_from_pc;
-                    cmd.PC_we <= '1';
                     state_d <= S_SLL;
 
                 elsif status.IR(6 downto 0) = "0000011" and status.IR(14 downto 12) = "010" then
@@ -249,16 +225,9 @@ begin
                     cmd.TO_PC_Y_sel <= TO_PC_Y_cst_x04;
                     cmd.PC_sel <= PC_from_pc;
                     cmd.PC_we <= '1';
-
-                    cmd.TO_PC_Y_sel <= TO_PC_Y_cst_x04;
-                    cmd.PC_sel <= PC_from_pc;
-                    cmd.PC_we <= '1';
                     state_d <= S_LW;
                 
                 elsif status.IR(6 downto 0) = "0010111" then
-                    cmd.TO_PC_Y_sel <= TO_PC_Y_cst_x04;
-                    cmd.PC_sel <= PC_from_pc;
-                    cmd.PC_we <= '1';
                     state_d <= S_AUIPC;
 
                 else
