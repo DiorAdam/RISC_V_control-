@@ -35,6 +35,7 @@ architecture RTL of CPU_PC is
         S_SRL,
         S_SLL,
         S_AUIPC,
+        S_AUIPC_exit,
         S_LW,
         S_LW_rm,
         S_LW_wm
@@ -108,7 +109,7 @@ begin
         -- Valeurs par défaut de cmd à définir selon les préférences de chacun
         cmd.rst               <= 'U';
         cmd.ALU_op            <= ALU_plus;
-        cmd.LOGICAL_op        <= UNDEFINED;
+        cmd.LOGICAL_op        <= LOGICAL_or;
         cmd.ALU_Y_sel         <= ALU_Y_rf_rs2;
 
         cmd.SHIFTER_op        <= SHIFT_rl;
@@ -120,12 +121,12 @@ begin
         cmd.DATA_sel          <= DATA_from_pc;
 
         cmd.PC_we             <= '0';
-        cmd.PC_sel            <= UNDEFINED;
+        cmd.PC_sel            <= PC_from_pc;
 
         cmd.PC_X_sel          <= PC_X_cst_x00;
         cmd.PC_Y_sel          <= PC_Y_cst_x04;
 
-        cmd.TO_PC_Y_sel       <= UNDEFINED;
+        cmd.TO_PC_Y_sel       <= TO_PC_Y_cst_x04;
 
         cmd.AD_we             <= '0';
         cmd.AD_Y_sel          <= AD_Y_immI;
@@ -170,12 +171,9 @@ begin
                 state_d <= S_Decode;
 
             when S_Decode =>
-                -- PC <- PC + 4
-                cmd.TO_PC_Y_sel <= TO_PC_Y_cst_x04;
-                cmd.PC_sel <= PC_from_pc;
-                cmd.PC_we <= '1';
 
                 if status.IR(6 downto 0) = "0110111" then
+                    -- PC <- PC + 4
                     cmd.TO_PC_Y_sel <= TO_PC_Y_cst_x04;
                     cmd.PC_sel <= PC_from_pc;
                     cmd.PC_we <= '1';
@@ -184,6 +182,7 @@ begin
                 elsif status.IR(6 downto 0) = "0110011"
                 and status.IR(14 downto 12) = "000" 
                 and status.IR(31 downto 25) = "0000000" then
+                    -- PC <- PC + 4
                     cmd.TO_PC_Y_sel <= TO_PC_Y_cst_x04;
                     cmd.PC_sel <= PC_from_pc;
                     cmd.PC_we <= '1';
@@ -191,6 +190,7 @@ begin
 
                 elsif status.IR(6 downto 0) = "0010011" 
                 and status.IR(14 downto 12) = "000" then
+                    -- PC <- PC + 4
                     cmd.TO_PC_Y_sel <= TO_PC_Y_cst_x04;
                     cmd.PC_sel <= PC_from_pc;
                     cmd.PC_we <= '1';
@@ -199,6 +199,7 @@ begin
                 elsif status.IR(6 downto 0) = "0110011" 
                 and status.IR(14 downto 12) = "101" 
                 and status.IR(31 downto 25) = "0000000" then
+                    -- PC <- PC + 4
                     cmd.TO_PC_Y_sel <= TO_PC_Y_cst_x04;
                     cmd.PC_sel <= PC_from_pc;
                     cmd.PC_we <= '1';
@@ -206,27 +207,27 @@ begin
 
                 elsif status.IR(6 downto 0) = "0010011" 
                 and status.IR(14 downto 12) = "110" then
+                    -- PC <- PC + 4
                     cmd.TO_PC_Y_sel <= TO_PC_Y_cst_x04;
                     cmd.PC_sel <= PC_from_pc;
                     cmd.PC_we <= '1';
                     state_d <= S_ORI;
 	
                 elsif status.IR(6 downto 0) = "0110011" and status.IR(14 downto 12) = "001" then
+                    -- PC <- PC + 4
                     cmd.TO_PC_Y_sel <= TO_PC_Y_cst_x04;
                     cmd.PC_sel <= PC_from_pc;
                     cmd.PC_we <= '1';
                     state_d <= S_SLL;
 
                 elsif status.IR(6 downto 0) = "0000011" and status.IR(14 downto 12) = "010" then
+                    -- PC <- PC + 4
                     cmd.TO_PC_Y_sel <= TO_PC_Y_cst_x04;
                     cmd.PC_sel <= PC_from_pc;
                     cmd.PC_we <= '1';
                     state_d <= S_LW;
                 
                 elsif status.IR(6 downto 0) = "0010111" then
-                    cmd.TO_PC_Y_sel <= TO_PC_Y_cst_x04;
-                    cmd.PC_sel <= PC_from_pc;
-                    cmd.PC_we <= '1';
                     state_d <= S_AUIPC;
 
                 else
@@ -259,6 +260,14 @@ begin
                 cmd.PC_Y_sel <= PC_Y_immU;
                 cmd.RF_we <= '1';
                 cmd.DATA_sel <= DATA_from_pc;
+                -- PC <- PC + 4
+                cmd.TO_PC_Y_sel <= TO_PC_Y_cst_x04;
+                cmd.PC_sel <= PC_from_pc;
+                cmd.PC_we <= '1';
+                --next state
+                state_d <= S_AUIPC_exit;
+
+            when S_AUIPC_exit =>
                 -- lecture mem[PC]
                 cmd.ADDR_sel <= ADDR_from_pc;
                 cmd.mem_ce <= '1';

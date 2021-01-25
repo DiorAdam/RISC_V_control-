@@ -3,14 +3,14 @@
 
     auipc x29, 0
     add x30, x1, x2
-    lw x31, 0(x29)
+    lw x31, 0x4(x29)
 
     auipc x29, 0
     add x30, x3, x4
-    lw x31, 0(x29)
+    lw x31, 0x4(x29)
 
     auipc x29, 0
-    lw x31, 0xc(x29)
+    lw x31, 0x10(x29)
 
     add x30, x5, x6
     add x30, x5, x6
