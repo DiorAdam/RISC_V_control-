@@ -36,8 +36,8 @@ architecture RTL of CPU_PC is
         S_SLL,
         S_AUIPC,
         S_LW,
-        S_LW_exit,
-        S_LW3
+        S_LW_rm,
+        S_LW_wm
     );
 
     signal state_d, state_q : State_type;
@@ -349,17 +349,18 @@ begin
                 cmd.AD_we <= '1';
                 
                 --next state
-                state_d <= S_LW_exit;
+                state_d <= S_LW_rm;
             
-            when S_LW_exit =>
-                --writing data from memory on destination register
+            when S_LW_rm =>
+                --reading memory data
                 cmd.ADDR_sel <= ADDR_from_ad;
                 cmd.mem_ce <= '1';
                 cmd.mem_we <= '0';
                 
-                state_d <= S_LW3;
+                state_d <= S_LW_wm;
 
-            when S_LW3 =>
+            when S_LW_wm =>
+                --writing memory data on destination register
                 cmd.RF_SIZE_sel <= RF_SIZE_word;
                 cmd.RF_we <= '1';
                 cmd.DATA_sel <= DATA_from_mem;
