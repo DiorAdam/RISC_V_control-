@@ -1,8 +1,9 @@
 # TAG = sw
     .text
+    
     addi x5, 0x1
-    slli x5, 0xc            # x5 = 0x1000 
-    addi x5, 0x40
+    slli x5, 0xc            #x5 = 0x1000
+    addi x5, x0, 0x50
 
     addi x1, x0, 0x78
     addi x2, x0, 0x2f
@@ -20,3 +21,4 @@
     # 0000002f
     # pout_end
 
+    
