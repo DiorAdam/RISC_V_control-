@@ -1,5 +1,6 @@
 # TAG = sw
     .text
+    
     addi x5, 0x800
     add x5, x5, x5
     add x5, x5, x5
