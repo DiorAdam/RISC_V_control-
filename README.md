@@ -7,66 +7,66 @@ It contains the following instructions :
 ## Arithmetic and logical instructions
 
 
-### addi  (add immediate)
+#### addi  (add immediate)
 
 
-### add   (addition)
+#### add   (addition)
 
 
-### sub   (substraction)
+#### sub   (substraction)
 
 
-### or   
+#### or   
 
 
-### ori   (or immediate)
+#### ori   (or immediate)
 
 
-### and   
+#### and   
 
 
-### andi  (and immediate) 
+#### andi  (and immediate) 
 
 
-### xor   
+#### xor   
 
 
-### xori  (xor immediate)
+#### xori  (xor immediate)
 
 
-### sll   (shift left logical)
+#### sll   (shift left logical)
 
 
-### slli  (sll immediate)
+#### slli  (sll immediate)
 
 
-### srl   (shift right logical)
+#### srl   (shift right logical)
 
 
-### sra   (shift right arithmetic)
+#### sra   (shift right arithmetic)
 
 
-### srai  (sra immediate)
+#### srai  (sra immediate)
 
 
 ---------------------------------------------------------------------------------------
-## type U instruction 
+## type U instructions 
 
 
-### lui   (load upper immediate)
+#### lui   (load upper immediate)
 
 
-### auipc (add upper immediate program counter)
+#### auipc (add upper immediate program counter)
 
 
 -----------------------------------------------------------------------------------
 ## Load and Store 
 
 
-### lw    (load word)
+#### lw    (load word)
 
 
-### sw    (store word)
+#### sw    (store word)
 
 
 
