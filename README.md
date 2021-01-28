@@ -1,6 +1,6 @@
 # RISC V Processor
 
-This project is an implementation of the RISCV instruction set architecture in VHDL. 
+This project is an implementation of the RISCV instruction set architecture. 
 It contains the following instructions : 
 
 ----------------------------------------------------------------------------------------
